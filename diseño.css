@@ -79,3 +79,25 @@
 #btnPlay:active{
     transform:translateX(-50%) scale(0.95);
 }
+
+#logo {
+    /* 1. Esto activa el movimiento con top, right, etc. */
+    position: absolute; 
+    top: 20px;
+    right: 20px;
+
+    /* 2. Un tamaño un poco más visible (ajústalo a tu gusto) */
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+
+    /* 3. Un borde blanco más fino y estético */
+    border-radius: 50%; /* 50% es mejor que 100% para hacer círculos perfectos */
+    border: 3px solid white;
+
+    /* 4. Tu capa y efectos de brillo intactos */
+    z-index: 999;
+    box-shadow:
+        0 0 10px #00d9ff,
+        0 0 20px #00d9ff;
+}
