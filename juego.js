@@ -34,9 +34,7 @@ function obtenerPalabra() {
 
     return palabrasPendientes.shift(); // toma la siguiente palabra y la elimina
 }
-// VARIABLES DE AUDIO
-var punto = new Audio()
-punto.src = "audios/punto.mp3"
+
 //VARIABLE IMAGENES
 var bird = new Image()
 bird.src = "imagenes/bird.png"
