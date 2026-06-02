@@ -1,119 +1,82 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-
-<title>English Bird Adventure</title>
-
-<link rel="icon" type="image/png" href="imagenes/logo.png">
-
-<style>
-
-body{
-    margin:0;
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-    padding-top:30px;
-    height:100vh;
-
-    background:linear-gradient(
-        180deg,
-        #001f3f,
-        #003366,
-        #001122
-    );
-
-    font-family:Arial, Helvetica, sans-serif;
+#listaPalabras{
+    height:350px;
+    overflow-y:auto;
 }
 
-#logo {
-    position: absolute; 
-    top: 20px;
-    right: 20px;
-
-    width: 60px; /* Tamaño más visible, puedes cambiarlo si lo quieres más grande o pequeño */
-    height: 60px;
-    object-fit: cover;
-
-    border-radius: 50%; /* Hace que sea un círculo perfecto */
-    border: 3px solid white; /* Un borde blanco elegante en lugar del de 40px */
-
-    z-index: 999; /* Se asegura de quedar por encima de todo */
-
-    /* Tus efectos de brillo azul */
-    box-shadow:
-        0 0 10px #00d9ff,
-        0 0 20px #00d9ff;
-}
-.contenedor{
-    display:flex;
-    gap:20px;
+#listaPalabras::-webkit-scrollbar{
+    width:8px;
 }
 
+#listaPalabras::-webkit-scrollbar-track{
+    background:#fdfeff;
+}
+
+#listaPalabras::-webkit-scrollbar-thumb{
+    background:#00d9ff;
+    border-radius:10px;
+}
+
+/* CONTENEDOR DEL JUEGO */
 .juego{
+    position:relative;
+
     border:4px solid #00d9ff;
 
     box-shadow:
-    0 0 10px #00d9ff,
-    0 0 25px #00d9ff,
-    0 0 50px #00d9ff;
+        0 0 10px #00d9ff,
+        0 0 25px #00d9ff,
+        0 0 50px #00d9ff;
 
     border-radius:15px;
     overflow:hidden;
 }
 
-.panel{
-    width:280px;
-    height:530px;
-    overflow:hidden;
+/* BOTÓN PLAY */
+#btnPlay{
+    display:none;
+
+    position:absolute;
+
+    left:50%;
+    top:65%;
+
+    transform:translateX(-50%);
+
+    background:linear-gradient(
+        180deg,
+        #00aa00,
+        #006400
+    );
+
+    color:white;
+
+    border:3px solid #ffffff;
+
+    border-radius:15px;
+
+    font-size:32px;
+    font-weight:bold;
+
+    padding:15px 45px;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 0 10px #00ff00,
+        0 0 20px #00cc00;
+
+    transition:all 0.2s ease;
 }
-.panel h2{
-    text-align:center;
-    color:#00d9ff;
+
+#btnPlay:hover{
+    transform:translateX(-50%) scale(1.1);
+
+    box-shadow:
+        0 0 15px #00ff00,
+        0 0 30px #00ff00;
 }
 
-#listaPalabras{
-    margin-top:15px;
+#btnPlay:active{
+    transform:translateX(-50%) scale(0.95);
 }
 
-.palabra{
-    padding:8px;
-    margin-bottom:8px;
-
-    background:#fcfeff;
-
-    border-radius:8px;
-}
-
-</style>
-</head>
-
-<body> <img src="imagenes/logo.png" id="logo" alt="logo">
-<div class="contenedor">
-
-    <div class="juego">
-        <canvas id="lienzojuego"></canvas>
-    </div>
-
-    <div class="panel">
-        <h2>📚 Vocabulary</h2>
-
-        <div id="listaPalabras">
-
-        </div>
-
-        <hr>
-
-        <h3>
-            Palabras aprendidas:
-            <span id="contador">0</span>
-        </h3>
-    </div>
-
-</div>
-
-<script src="juego.js"></script>
-
-</body>
-</html>
