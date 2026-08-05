@@ -32,7 +32,7 @@ var traducciones = {
     dog: "Perro", house: "Casa", sun: "Sol", bird: "Pájaro", green: "Verde", eye: "Ojo", table: "Mesa", classroom: "Salón", student: "Estudiante", water: "Agua", book: "Libro", school: "Escuela", friend: "Amigo"
 };
 
-// FUNCIÓN DE REINICIO SIN RECARGAR PÁGINA
+// REINICIO DE JUEGO
 function reiniciarJuego() {
     personaje.y = 150;
     score = 0;
@@ -41,17 +41,18 @@ function reiniciarJuego() {
     tuberias = [];
     tuberias[0] = {
         x: contexto.canvas.width,
-        y: 0, // Mantiene la posición original exacta (pegada arriba)
+        y: 0,
         palabra: obtenerPalabra()
     };
-    document.getElementById("listaPalabras").innerHTML = "";
-    document.getElementById("contador").innerText = "0";
+    let lista = document.getElementById("listaPalabras");
+    if (lista) lista.innerHTML = "";
+    let contador = document.getElementById("contador");
+    if (contador) contador.innerText = "0";
 }
 
-// Inicializar estado del juego
 reiniciarJuego();
 
-// AUDIO E IMÁGENES
+// RECURSOS
 var punto = new Audio()
 punto.src = "audios/punto.mp3"
 
@@ -70,26 +71,31 @@ tuberiaSur.src = "imagenes/tuberiaSur.png"
 var suelo = new Image()
 suelo.src = "imagenes/suelo.png"
 
-// Variable para desbloquear audio en móviles/servidor
+// DESBLOQUEO DE AUDIO Y SÍNTESIS EN MÓVILES
 var audioInicializado = false;
+
+function activarAudioCelular() {
+    if (audioInicializado) return;
+
+    // Desbloquear audio MP3
+    punto.play().then(function() {
+        punto.pause();
+        punto.currentTime = 0;
+    }).catch(function(e){});
+
+    // Desbloquear motor de voz (Voice API)
+    if ('speechSynthesis' in window) {
+        var v = new SpeechSynthesisUtterance("");
+        window.speechSynthesis.speak(v);
+    }
+
+    audioInicializado = true;
+}
 
 // CONTROL
 function presionar(e) {
     if (e && e.cancelable) e.preventDefault();
-    
-    if (!audioInicializado) {
-        punto.play().then(() => {
-            punto.pause();
-            punto.currentTime = 0;
-        }).catch(function(err){});
-
-        if ('speechSynthesis' in window) {
-            let inicioSilencioso = new SpeechSynthesisUtterance("");
-            speechSynthesis.speak(inicioSilencioso);
-        }
-        audioInicializado = true;
-    }
-
+    activarAudioCelular();
     personaje.y -= 33;
 }
 
@@ -97,7 +103,7 @@ window.addEventListener("keydown", presionar);
 document.getElementById("lienzojuego").addEventListener("touchstart", presionar, { passive: false });
 document.getElementById("lienzojuego").addEventListener("mousedown", presionar);
 
-// BUCLE PRINCIPAL (Solo se ejecuta cuando las imágenes cargan para evitar el bucle)
+// BUCLE PRINCIPAL
 window.onload = function() {
     setInterval(loop, 1000 / FPS);
 };
@@ -121,14 +127,10 @@ function loop() {
 
     contexto.clearRect(0, 0, 300, 530)
     
-    // FONDO Y SUELO
     contexto.drawImage(background, 0, 0)
     contexto.drawImage(suelo, 0, contexto.canvas.height - suelo.height)
-    
-    // PERSONAJE
     contexto.drawImage(bird, personaje.x, personaje.y)
 
-    // GENERADOR DE TUBERÍAS
     for (var i = 0; i < tuberias.length; i++) {
         var constante = tuberiaNorte.height + 110;
 
@@ -136,10 +138,8 @@ function loop() {
         contexto.drawImage(tuberiaSur, tuberias[i].x, tuberias[i].y + constante)
         tuberias[i].x--
 
-        // Mantiene la tubería fija en y = 0 como en tu original
         tuberias[i].y = 0;
 
-        // Nueva tubería cada 50px
         if (tuberias[i].x == 50 && !juegoGanado) {
             var nuevaPalabra = obtenerPalabra();
             if (nuevaPalabra !== "") {
@@ -151,7 +151,6 @@ function loop() {
             }
         }
 
-        // Mostrar palabra en el centro del espacio
         contexto.fillStyle = "black";
         contexto.font = "20px Arial";
         contexto.fillText(
@@ -160,7 +159,6 @@ function loop() {
             tuberias[i].y + tuberiaNorte.height + 55
         );
 
-        // COLISIÓN CON TUBERÍAS
         if (personaje.x + bird.width >= tuberias[i].x && 
             personaje.x <= tuberias[i].x + tuberiaNorte.width && 
             (personaje.y <= tuberias[i].y + tuberiaNorte.height || personaje.y + bird.height >= tuberias[i].y + constante)) {
@@ -168,51 +166,49 @@ function loop() {
             return;
         }
 
-        // PUNTUACIÓN
         if (tuberias[i].x == personaje.x) {
             score++;
             punto.currentTime = 0;
-            punto.play().catch(function(err){});
+            punto.play().catch(function(e){});
 
             hablar(tuberias[i].palabra);
             agregarPalabraAprendida(tuberias[i].palabra);
         }
     }
 
-    // COLISIÓN CON SUELO Y TECHO
     var altoSuelo = suelo.height > 0 ? suelo.height : 112;
     if (personaje.y + bird.height >= contexto.canvas.height - altoSuelo || personaje.y <= 0) {
         reiniciarJuego();
         return;
     }
 
-    // FÍSICA Y SCORE
     personaje.y += gravedad;
     contexto.fillStyle = "rgb(255, 255, 255)";
     contexto.font = "25px Arial";
     contexto.fillText("Score: " + score, 10, contexto.canvas.height - 40);
 }
 
-// VOZ DE API
+// SÍNTESIS DE VOZ COMPATIBLE MÓVIL
 function hablar(texto) {
     if ('speechSynthesis' in window && texto) {
-        speechSynthesis.cancel();
-        let voz = new SpeechSynthesisUtterance(texto);
+        var voz = new SpeechSynthesisUtterance(texto);
         voz.lang = "en-US";
-        voz.rate = 0.6;
-        speechSynthesis.speak(voz);
+        voz.rate = 0.7;
+        window.speechSynthesis.speak(voz);
     }
 }
 
-// ACUMULAR PALABRAS EN EL PANEL
 function agregarPalabraAprendida(palabra) {
     if (!palabra) return;
     let lista = document.getElementById("listaPalabras");
-    let div = document.createElement("div");
+    if (!lista) return;
 
+    let div = document.createElement("div");
     div.className = "palabra";
     div.innerHTML = "<b>" + palabra + "</b> → " + traducciones[palabra];
 
     lista.appendChild(div);
-    document.getElementById("contador").innerText = lista.children.length;
+
+    let contador = document.getElementById("contador");
+    if (contador) contador.innerText = lista.children.length;
 }
