@@ -10,6 +10,13 @@
 
 <body> 
     <img src="imagenes/logo.png" id="logo" alt="logo">
+
+    <div class="categorias-bar">
+        <button class="btn-categoria activa" onclick="cambiarCategoria('school', this)">🏫 School</button>
+        <button class="btn-categoria" onclick="cambiarCategoria('house', this)">🏠 House</button>
+        <button class="btn-categoria" onclick="cambiarCategoria('fiesta', this)">🎉 Party</button>
+    </div>
+
     <div class="contenedor">
         <div class="juego">
             <canvas id="lienzojuego"></canvas>
