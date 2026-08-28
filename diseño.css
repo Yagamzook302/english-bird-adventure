@@ -5,41 +5,15 @@ body {
     align-items: center;
     padding-top: 15px;
     min-height: 100vh;
-    background: linear-gradient(180deg, #001f3f, #003366, #001122);
     font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
-}
 
-/* BARRA DE CATEGORÍAS */
-.categorias-bar {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-    z-index: 10;
-}
-
-.btn-categoria {
-    background: #003366;
-    color: white;
-    border: 2px solid #00d9ff;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 0 5px rgba(0, 217, 255, 0.4);
-}
-
-.btn-categoria:hover {
-    background: #005599;
-    transform: translateY(-2px);
-}
-
-.btn-categoria.activa {
-    background: #00d9ff;
-    color: #001f3f;
-    box-shadow: 0 0 12px #00d9ff;
+    /* FONDO INFANTIL VECTORIAL */
+    background-image: url('imagenes/fondo.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 #logo {
@@ -55,6 +29,154 @@ body {
     box-shadow: 0 0 10px #00d9ff;
 }
 
+/* CLASE PARA OCULTAR VISTAS */
+.oculto {
+    display: none !important;
+}
+
+/* ---------------------------------------------------------------------
+   MENÚ PRINCIPAL Y BOTONES GRANDES (BIRD Y MATCH)
+--------------------------------------------------------------------- */
+.pantalla-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px;
+}
+
+.titulo-principal {
+    color: white;
+    font-size: 38px;
+    margin-bottom: 40px;
+    text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000;
+}
+
+.contenedor-botones-menu {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ESTILO BASE DE LOS BOTONES GRANDES */
+.btn-menu {
+    font-size: 42px;
+    font-weight: 900;
+    color: #ffffff;
+    padding: 25px 50px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    
+    /* CONTORNO NEGRO GRUESO EN EL TEXTO */
+    text-shadow: 
+        -3px -3px 0 #000, 
+         3px -3px 0 #000, 
+        -3px  3px 0 #000, 
+         3px  3px 0 #000,
+        -4px  0px 0 #000,
+         4px  0px 0 #000,
+         0px -4px 0 #000,
+         0px  4px 0 #000;
+
+    border: 4px solid #ffffff;
+}
+
+/* BOTÓN BIRD: Verde neón suave */
+.btn-bird {
+    background: #39ff14;
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.6), inset 0 -5px 0 rgba(0,0,0,0.2);
+}
+
+/* BOTÓN MATCH: Rojo oscuro */
+.btn-match {
+    background: #8b0000;
+    box-shadow: 0 0 15px rgba(139, 0, 0, 0.6), inset 0 -5px 0 rgba(0,0,0,0.3);
+}
+
+.btn-menu:hover {
+    transform: scale(1.08);
+}
+
+.btn-menu:active {
+    transform: scale(0.95);
+}
+
+/* BOTÓN VOLVER AL MENÚ */
+.btn-volver {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: #003366;
+    color: white;
+    border: 2px solid #00d9ff;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 100;
+}
+
+/* ---------------------------------------------------------------------
+   ESTILOS JUEGO BIRD
+--------------------------------------------------------------------- */
+#vistaBird {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+
+    /* APLICAR LA IMAGEN Y ESCALARLA AL TAMAÑO DEL DISPOSITIVO */
+    background-image: url('imagenes/fondobird.png');
+    background-size: cover;          /* Escala la imagen para cubrir toda la pantalla */
+    background-position: center;      /* Centra los personajes y letras */
+    background-repeat: no-repeat;    /* Evita que se repita */
+    background-attachment: fixed;    /* La mantiene fija al hacer scroll en móviles */
+}
+
+/* BARRA DE NIVELES CON SCROLL HORIZONTAL */
+.categorias-bar, .selector-categoria {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    z-index: 10;
+    max-width: 90vw;
+    overflow-x: auto;
+    padding: 10px 5px;
+    white-space: nowrap;
+    scrollbar-width: thin;
+}
+
+.categorias-bar::-webkit-scrollbar, .selector-categoria::-webkit-scrollbar {
+    height: 6px;
+}
+
+.categorias-bar::-webkit-scrollbar-thumb, .selector-categoria::-webkit-scrollbar-thumb {
+    background: #00d9ff;
+    border-radius: 10px;
+}
+
+.btn-categoria, .btn-cat {
+    background: #003366;
+    color: white;
+    border: 2px solid #00d9ff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.btn-categoria.activa, .btn-cat.activo {
+    background: #00d9ff;
+    color: #001f3f;
+    box-shadow: 0 0 12px #00d9ff;
+}
+
 .contenedor {
     display: flex;
     gap: 20px;
@@ -64,7 +186,7 @@ body {
 .juego {
     position: relative;
     border: 4px solid #00d9ff;
-    box-shadow: 0 0 10px #00d9ff, 0 0 25px #00d9ff, 0 0 50px #00d9ff;
+    box-shadow: 0 0 10px #00d9ff, 0 0 25px #00d9ff;
     border-radius: 15px;
     overflow: hidden;
     line-height: 0;
@@ -77,7 +199,7 @@ body {
 .panel {
     width: 280px;
     height: 530px;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(10, 25, 47, 0.85);
     border-radius: 15px;
     padding: 15px;
     box-sizing: border-box;
@@ -85,34 +207,13 @@ body {
     flex-direction: column;
 }
 
-.panel h2 {
-    text-align: center;
-    color: #00d9ff;
-    margin-top: 0;
-}
-
-.panel h3 {
-    color: white;
-    margin-bottom: 0;
-}
+.panel h2 { text-align: center; color: #00d9ff; margin-top: 0; }
+.panel h3 { color: white; margin-bottom: 0; }
 
 #listaPalabras {
     flex-grow: 1;
     overflow-y: auto;
     margin-top: 10px;
-}
-
-#listaPalabras::-webkit-scrollbar {
-    width: 8px;
-}
-
-#listaPalabras::-webkit-scrollbar-track {
-    background: #fdfeff;
-}
-
-#listaPalabras::-webkit-scrollbar-thumb {
-    background: #00d9ff;
-    border-radius: 10px;
 }
 
 .palabra {
@@ -123,15 +224,91 @@ body {
     color: #333;
 }
 
-/* REDIMENSIONAMIENTO PARA CELULARES */
+/* ---------------------------------------------------------------------
+   ESTILOS JUEGO MATCH (CARTAS DE MATEMÁTICAS)
+--------------------------------------------------------------------- */
+#vistaMatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh; /* Ocupa todo el alto de la pantalla */
+    box-sizing: border-box;
+    padding-top: 80px; /* Espacio para que el botón Menu no tape el título */
+
+    /* APLICAR LA IMAGEN Y ESCALARLA AL TAMAÑO DEL DISPOSITIVO */
+    background-image: url('imagenes/fondomatch.png');
+    background-size: cover;          /* Escala la imagen para cubrir toda la pantalla sin deformarse */
+    background-position: center;      /* Centra la imagen */
+    background-repeat: no-repeat;    /* Evita que se repita */
+    background-attachment: fixed;    /* La mantiene fija al hacer scroll (importante en móviles) */
+}
+.titulo-math {
+    color: white;
+    font-size: 28px;
+    text-shadow: 2px 2px 4px #000;
+    margin-bottom: 20px;
+}
+
+.tablero-cartas {
+    display: grid;
+    grid-template-columns: repeat(4, 90px);
+    gap: 12px;
+    background: rgba(129, 28, 11, 0.85);
+    padding: 20px;
+    border-radius: 15px;
+    border: 3px solid #00d9ff;
+}
+
+.carta {
+    width: 90px;
+    height: 110px;
+    background: #352b2a;
+    border: 2px solid #00d9ff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.carta.revelada {
+    background: #ffffff;
+    color: #580518;
+    transform: scale(1.05);
+}
+
+.carta.emparejada {
+    background: #24cc07;
+    color: #580518;
+    cursor: default;
+    transform: scale(1);
+}
+
+/* RESPONSIVE PARA CELULARES */
 @media (max-width: 768px) {
-    body {
-        padding-top: 10px;
+    .pantalla-menu {
+        margin-top: 40px;
     }
 
-    .btn-categoria {
-        padding: 6px 12px;
-        font-size: 12px;
+    .titulo-principal {
+        font-size: 26px;
+    }
+
+    .contenedor-botones-menu {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .btn-menu {
+        font-size: 32px;
+        padding: 18px 40px;
+        width: 200px;
     }
 
     .contenedor {
@@ -151,29 +328,15 @@ body {
         padding: 10px;
     }
 
-    .panel h2 {
-        font-size: 18px;
-        margin-bottom: 5px;
+    .tablero-cartas {
+        grid-template-columns: repeat(3, 75px);
+        gap: 8px;
+        padding: 10px;
     }
 
-    .panel h3 {
-        font-size: 14px;
-    }
-
-    #listaPalabras {
+    .carta {
+        width: 75px;
         height: 90px;
-    }
-
-    .palabra {
-        padding: 5px;
-        font-size: 13px;
-        margin-bottom: 5px;
-    }
-
-    #logo {
-        width: 35px;
-        height: 35px;
-        top: 10px;
-        right: 10px;
+        font-size: 16px;
     }
 }
