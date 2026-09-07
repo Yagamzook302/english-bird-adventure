@@ -1,251 +1,90 @@
-// ---------------------------------------------------------------------
-// CONTROL DE NAVEGACIÓN DE PANTALLAS
-// ---------------------------------------------------------------------
-function iniciarJuego(tipo) {
-    if (tipo === 'bird') {
-        document.getElementById('menuPrincipal').classList.add('oculto');
-        document.getElementById('vistaBird').classList.remove('oculto');
-        
-        // ¡AGREGA ESTA LÍNEA PARA CREAR LOS BOTONES AL ENTRAR!
-        generarBotonesCategorias(); 
-
-        iniciarJuegoBird();
-    } else if (tipo === 'match') {
-        document.getElementById('menuPrincipal').classList.add('oculto');
-        document.getElementById('vistaMatch').classList.remove('oculto');
-        iniciarJuegoMatch();
-    }
-}
-
-function volverAlMenu() {
-    document.getElementById("vistaBird").classList.add("oculto");
-    document.getElementById("vistaMatch").classList.add("oculto");
-    document.getElementById("menuPrincipal").classList.remove("oculto");
-}
-
 // =====================================================================
-// 1. LÓGICA DEL JUEGO BIRD (INGLÉS)
+// 1. CONFIGURACIÓN Y VARIABLES DEL JUEGO BIRD
 // =====================================================================
 var contexto = document.getElementById("lienzojuego").getContext("2d");
 contexto.canvas.width = 300;
 contexto.canvas.height = 530;
 
 var categorias = {
-
     // NIVEL 1
     school: {
         palabras: ["teacher", "student", "pencil", "book", "classroom", "desk", "board", "ruler"],
         traducciones: {
-            teacher: "Profesor",
-            student: "Estudiante",
-            pencil: "Lápiz",
-            book: "Libro",
-            classroom: "Salón",
-            desk: "Escritorio",
-            board: "Tablero",
-            ruler: "Regla"
+            teacher: "Profesor", student: "Estudiante", pencil: "Lápiz", book: "Libro",
+            classroom: "Salón", desk: "Escritorio", board: "Tablero", ruler: "Regla"
         }
     },
-
     // NIVEL 2
     house: {
         palabras: ["door", "window", "kitchen", "bed", "table", "chair", "garden", "roof"],
         traducciones: {
-            door: "Puerta",
-            window: "Ventana",
-            kitchen: "Cocina",
-            bed: "Cama",
-            table: "Mesa",
-            chair: "Silla",
-            garden: "Jardín",
-            roof: "Techo"
+            door: "Puerta", window: "Ventana", kitchen: "Cocina", bed: "Cama",
+            table: "Mesa", chair: "Silla", garden: "Jardín", roof: "Techo"
         }
     },
-
     // NIVEL 3
     fiesta: {
         palabras: ["party", "music", "cake", "balloon", "gift", "dance", "game", "snack"],
         traducciones: {
-            party: "Fiesta",
-            music: "Música",
-            cake: "Pastel",
-            balloon: "Globo",
-            gift: "Regalo",
-            dance: "Baile",
-            game: "Juego",
-            snack: "Bocadillo"
+            party: "Fiesta", music: "Música", cake: "Pastel", balloon: "Globo",
+            gift: "Regalo", dance: "Baile", game: "Juego", snack: "Bocadillo"
         }
     },
-
     // NIVEL 4
     animals: {
         palabras: ["dog", "cat", "bird", "fish", "horse", "rabbit", "lion", "monkey"],
         traducciones: {
-            dog: "Perro",
-            cat: "Gato",
-            bird: "Pájaro",
-            fish: "Pez",
-            horse: "Caballo",
-            rabbit: "Conejo",
-            lion: "León",
-            monkey: "Mono"
+            dog: "Perro", cat: "Gato", bird: "Pájaro", fish: "Pez",
+            horse: "Caballo", rabbit: "Conejo", lion: "León", monkey: "Mono"
         }
     },
-
     // NIVEL 5
     colors: {
         palabras: ["red", "blue", "green", "yellow", "orange", "purple", "black", "white"],
         traducciones: {
-            red: "Rojo",
-            blue: "Azul",
-            green: "Verde",
-            yellow: "Amarillo",
-            orange: "Naranja",
-            purple: "Morado",
-            black: "Negro",
-            white: "Blanco"
+            red: "Rojo", blue: "Azul", green: "Verde", yellow: "Amarillo",
+            orange: "Naranja", purple: "Morado", black: "Negro", white: "Blanco"
         }
     },
-
     // NIVEL 6
     food: {
         palabras: ["apple", "banana", "bread", "milk", "cheese", "rice", "chicken", "water"],
         traducciones: {
-            apple: "Manzana",
-            banana: "Banano",
-            bread: "Pan",
-            milk: "Leche",
-            cheese: "Queso",
-            rice: "Arroz",
-            chicken: "Pollo",
-            water: "Agua"
+            apple: "Manzana", banana: "Banano", bread: "Pan", milk: "Leche",
+            cheese: "Queso", rice: "Arroz", chicken: "Pollo", water: "Agua"
         }
     },
-
     // NIVEL 7
     family: {
         palabras: ["mother", "father", "brother", "sister", "grandmother", "grandfather", "uncle", "aunt"],
         traducciones: {
-            mother: "Madre",
-            father: "Padre",
-            brother: "Hermano",
-            sister: "Hermana",
-            grandmother: "Abuela",
-            grandfather: "Abuelo",
-            uncle: "Tío",
-            aunt: "Tía"
+            mother: "Madre", father: "Padre", brother: "Hermano", sister: "Hermana",
+            grandmother: "Abuela", grandfather: "Abuelo", uncle: "Tío", aunt: "Tía"
         }
     },
-
     // NIVEL 8
-    body: {
-        palabras: ["head", "eye", "ear", "nose", "mouth", "hand", "foot", "hair"],
-        traducciones: {
-            head: "Cabeza",
-            eye: "Ojo",
-            ear: "Oreja",
-            nose: "Nariz",
-            mouth: "Boca",
-            hand: "Mano",
-            foot: "Pie",
-            hair: "Cabello"
-        }
-    },
-
-    // NIVEL 9
     nature: {
         palabras: ["sun", "moon", "star", "tree", "flower", "river", "mountain", "cloud"],
         traducciones: {
-            sun: "Sol",
-            moon: "Luna",
-            star: "Estrella",
-            tree: "Árbol",
-            flower: "Flor",
-            river: "Río",
-            mountain: "Montaña",
-            cloud: "Nube"
+            sun: "Sol", moon: "Luna", star: "Estrella", tree: "Árbol",
+            flower: "Flor", river: "Río", mountain: "Montaña", cloud: "Nube"
         }
     },
-
-    // NIVEL 10
-    clothes: {
-        palabras: ["shirt", "pants", "shoes", "hat", "dress", "jacket", "socks", "shorts"],
-        traducciones: {
-            shirt: "Camisa",
-            pants: "Pantalón",
-            shoes: "Zapatos",
-            hat: "Sombrero",
-            dress: "Vestido",
-            jacket: "Chaqueta",
-            socks: "Medias",
-            shorts: "Pantaloneta"
-        }
-    },
-
-    // NIVEL 11
+    // NIVEL 9
     transport: {
         palabras: ["car", "bus", "train", "plane", "boat", "bike", "truck", "taxi"],
         traducciones: {
-            car: "Carro",
-            bus: "Bus",
-            train: "Tren",
-            plane: "Avión",
-            boat: "Barco",
-            bike: "Bicicleta",
-            truck: "Camión",
-            taxi: "Taxi"
-        }
-    },
-
-    // NIVEL 12
-    actions: {
-        palabras: ["run", "jump", "walk", "eat", "drink", "read", "write", "sleep"],
-        traducciones: {
-            run: "Correr",
-            jump: "Saltar",
-            walk: "Caminar",
-            eat: "Comer",
-            drink: "Beber",
-            read: "Leer",
-            write: "Escribir",
-            sleep: "Dormir"
+            car: "Carro", bus: "Bus", train: "Tren", plane: "Avión",
+            boat: "Barco", bike: "Bicicleta", truck: "Camión", taxi: "Taxi"
         }
     }
-
 };
 
 var iconos = {
     school: "🏫", house: "🏠", fiesta: "🎉", animals: "🐶", 
-    colors: "🎨", food: "🍎", family: "👨‍👩‍👧", body: "🖐️", 
-    nature: "🌟", clothes: "👕", transport: "🚗", actions: "🏃"
+    colors: "🎨", food: "🍎", family: "👨‍👩‍👧", 
+    nature: "🌟", transport: "🚗"
 };
-
-function generarBotonesCategorias() {
-    var contenedor = document.getElementById("contenedorCategorias");
-    if (!contenedor) return;
-
-    contenedor.innerHTML = ""; // Limpiar antes de rellenar
-
-    Object.keys(categorias).forEach(function(llave) {
-        var boton = document.createElement("button");
-        // Soporta la clase de activo
-        boton.className = "btn-categoria" + (llave === categoriaActual ? " activa" : "");
-        
-        var nombreFormateado = llave.charAt(0).toUpperCase() + llave.slice(1);
-        var icono = iconos[llave] || "📚";
-        
-        boton.innerHTML = icono + " " + nombreFormateado;
-
-        boton.onclick = function() {
-            // Llama a tu función existente de cambio de categoría
-            if (typeof cambiarCategoria === "function") {
-                cambiarCategoria(llave, boton);
-            }
-        };
-
-        contenedor.appendChild(boton);
-    });
-}
 
 var categoriaActual = "school";
 var FPS = 60;
@@ -256,6 +95,67 @@ var palabrasPendientes = [];
 var traduccionesActuales = {};
 var juegoGanado = false;
 var tuberias = new Array();
+var juegoIniciado = false;
+
+// RECURSOS BIRD
+var bird = new Image(); bird.src = "imagenes/bird.png";
+var background = new Image(); background.src = "imagenes/background.png";
+var tuberiaNorte = new Image(); tuberiaNorte.src = "imagenes/tuberiaNorte.png";
+var tuberiaSur = new Image(); tuberiaSur.src = "imagenes/tuberiaSur.png";
+var suelo = new Image(); suelo.src = "imagenes/suelo.png";
+
+// --- CONTROL DE ESTADO Y BOTONES BIRD ---
+function prepararEstadoInicialBird() {
+    juegoIniciado = false;
+    reiniciarJuegoBird();
+    mostrarBotonAccion("PLAY", false);
+}
+
+function iniciarOReiniciarBird() {
+    reiniciarJuegoBird();
+    juegoIniciado = true;
+    ocultarBotonAccion();
+}
+
+function mostrarBotonAccion(texto, esRestart) {
+    var btn = document.getElementById("btnAccionBird");
+    if (!btn) return;
+    btn.innerText = texto;
+    if (esRestart) {
+        btn.classList.add("restart");
+    } else {
+        btn.classList.remove("restart");
+    }
+    btn.classList.remove("oculto");
+}
+
+function ocultarBotonAccion() {
+    var btn = document.getElementById("btnAccionBird");
+    if (btn) btn.classList.add("oculto");
+}
+
+function generarBotonesCategorias() {
+    var contenedor = document.getElementById("contenedorCategorias");
+    if (!contenedor) return;
+
+    contenedor.innerHTML = "";
+
+    Object.keys(categorias).forEach(function(llave) {
+        var boton = document.createElement("button");
+        boton.className = "btn-categoria" + (llave === categoriaActual ? " activa" : "");
+        
+        var nombreFormateado = llave.charAt(0).toUpperCase() + llave.slice(1);
+        var icono = iconos[llave] || "📚";
+        
+        boton.innerHTML = icono + " " + nombreFormateado;
+
+        boton.onclick = function() {
+            cambiarCategoria(llave, boton);
+        };
+
+        contenedor.appendChild(boton);
+    });
+}
 
 function cambiarCategoria(nombreCategoria, elementoBoton) {
     if (!categorias[nombreCategoria]) return;
@@ -263,7 +163,8 @@ function cambiarCategoria(nombreCategoria, elementoBoton) {
     var botones = document.querySelectorAll('.btn-categoria');
     botones.forEach(btn => btn.classList.remove('activa'));
     if (elementoBoton) elementoBoton.classList.add('activa');
-    reiniciarJuegoBird();
+    
+    prepararEstadoInicialBird();
 }
 
 function obtenerPalabra() {
@@ -294,18 +195,9 @@ function reiniciarJuegoBird() {
     if (contador) contador.innerText = "0";
 }
 
-// RECURSOS BIRD
-var punto = new Audio(); punto.src = "audios/punto.mp3";
-var bird = new Image(); bird.src = "imagenes/bird.png";
-var background = new Image(); background.src = "imagenes/background.png";
-var tuberiaNorte = new Image(); tuberiaNorte.src = "imagenes/tuberiaNorte.png";
-var tuberiaSur = new Image(); tuberiaSur.src = "imagenes/tuberiaSur.png";
-var suelo = new Image(); suelo.src = "imagenes/suelo.png";
-
 var audioInicializado = false;
 function activarAudioCelular() {
     if (audioInicializado) return;
-    punto.play().then(function() { punto.pause(); punto.currentTime = 0; }).catch(function(e){});
     if ('speechSynthesis' in window) {
         var v = new SpeechSynthesisUtterance("");
         window.speechSynthesis.speak(v);
@@ -314,22 +206,24 @@ function activarAudioCelular() {
 }
 
 function presionar(e) {
-    if (document.getElementById("vistaBird").classList.contains("oculto")) return;
+    var vistaBird = document.getElementById("vistaBird");
+    if (!vistaBird || vistaBird.classList.contains("oculto")) return;
+    if (!juegoIniciado) return;
     if (e && e.cancelable) e.preventDefault();
     activarAudioCelular();
     personaje.y -= 33;
 }
 
 window.addEventListener("keydown", presionar);
-document.getElementById("lienzojuego").addEventListener("touchstart", presionar, { passive: false });
-document.getElementById("lienzojuego").addEventListener("mousedown", presionar);
-
-window.onload = function() {
-    setInterval(loop, 1000 / FPS);
-};
+var lienzo = document.getElementById("lienzojuego");
+if (lienzo) {
+    lienzo.addEventListener("touchstart", presionar, { passive: false });
+    lienzo.addEventListener("mousedown", presionar);
+}
 
 function loop() {
-    if (document.getElementById("vistaBird").classList.contains("oculto")) return;
+    var vistaBird = document.getElementById("vistaBird");
+    if (!vistaBird || vistaBird.classList.contains("oculto")) return;
 
     if (juegoGanado) {
         contexto.drawImage(background, 0, 0);
@@ -341,6 +235,9 @@ function loop() {
         contexto.lineWidth = 4;
         contexto.strokeText("YOU WIN!", contexto.canvas.width / 2, contexto.canvas.height / 2);
         contexto.fillText("YOU WIN!", contexto.canvas.width / 2, contexto.canvas.height / 2);
+        
+        juegoIniciado = false;
+        mostrarBotonAccion("RESTART", true);
         return;
     }
 
@@ -348,6 +245,8 @@ function loop() {
     contexto.drawImage(background, 0, 0);
     contexto.drawImage(suelo, 0, contexto.canvas.height - suelo.height);
     contexto.drawImage(bird, personaje.x, personaje.y);
+
+    if (!juegoIniciado) return;
 
     for (var i = 0; i < tuberias.length; i++) {
         var altoNorte = tuberiaNorte.height || 242;
@@ -375,14 +274,13 @@ function loop() {
         if (personaje.x + bird.width >= tuberias[i].x && 
             personaje.x <= tuberias[i].x + tuberiaNorte.width && 
             (personaje.y <= tuberias[i].y + altoNorte || personaje.y + bird.height >= tuberias[i].y + constante)) {
-            reiniciarJuegoBird();
+            juegoIniciado = false;
+            mostrarBotonAccion("RESTART", true);
             return;
         }
 
         if (tuberias[i].x == personaje.x) {
             score++;
-            punto.currentTime = 0;
-            punto.play().catch(function(e){});
             hablar(tuberias[i].palabra);
             agregarPalabraAprendida(tuberias[i].palabra);
         }
@@ -390,7 +288,8 @@ function loop() {
 
     var altoSuelo = suelo.height > 0 ? suelo.height : 112;
     if (personaje.y + bird.height >= contexto.canvas.height - altoSuelo || personaje.y <= 0) {
-        reiniciarJuegoBird();
+        juegoIniciado = false;
+        mostrarBotonAccion("RESTART", true);
         return;
     }
 
@@ -426,31 +325,54 @@ function agregarPalabraAprendida(palabra) {
 }
 
 // =====================================================================
-// 2. LÓGICA DEL JUEGO MATCH (NÚMEROS EN INGLÉS Y AUDIO)
+// 2. LÓGICA DEL JUEGO MATCH
 // =====================================================================
+var nivelesMatch = {
+    numeros: [
+        { texto: "1", parId: "1", audio: "one" },     { texto: "One(1)", parId: "1", audio: "one" },
+        { texto: "2", parId: "2", audio: "two" },     { texto: "Two(2)", parId: "2", audio: "two" },
+        { texto: "3", parId: "3", audio: "three" },   { texto: "Three(3)", parId: "3", audio: "three" },
+        { texto: "4", parId: "4", audio: "four" },    { texto: "Four(4)", parId: "4", audio: "four" },
+        { texto: "5", parId: "5", audio: "five" },    { texto: "Five(5)", parId: "5", audio: "five" },
+        { texto: "8", parId: "8", audio: "eight" },   { texto: "Eight(8)", parId: "8", audio: "eight" },
+        { texto: "9", parId: "9", audio: "nine" },    { texto: "Nine(9)", parId: "nine" },
+        { texto: "10", parId: "10", audio: "ten" },   { texto: "Ten(10)", parId: "10", audio: "ten" }
+    ],
+    multiplicaciones: [
+        { texto: "2 × 2", parId: "m1", audio: "four" },      { texto: "Four(4)", parId: "m1", audio: "four" },
+        { texto: "3 × 2", parId: "m2", audio: "six" },       { texto: "Six(6)", parId: "m2", audio: "six" },
+        { texto: "4 × 2", parId: "m3", audio: "eight" },     { texto: "Eight(8)", parId: "m3", audio: "eight" },
+        { texto: "3 × 3", parId: "m4", audio: "nine" },      { texto: "Nine(9)", parId: "m4", audio: "nine" },
+        { texto: "5 × 2", parId: "m5", audio: "ten" },       { texto: "Ten(10)", parId: "m5", audio: "ten" },
+        { texto: "4 × 3", parId: "m6", audio: "twelve" },    { texto: "Twelve(12)", parId: "m6", audio: "twelve" },
+        { texto: "5 × 3", parId: "m7", audio: "fifteen" },   { texto: "Fifteen(15)", parId: "m7", audio: "fifteen" },
+        { texto: "4 × 5", parId: "m8", audio: "twenty" },    { texto: "Twenty(20)", parId: "m8", audio: "twenty" }
+    ]
+};
 
-// Parejas de números (Cifra vs Nombre en inglés)
-var datosCartas = [
-    { texto: "1", parId: "1", audio: "one" },     { texto: "One", parId: "1", audio: "one" },
-    { texto: "2", parId: "2", audio: "two" },     { texto: "Two", parId: "2", audio: "two" },
-    { texto: "3", parId: "3", audio: "three" },   { texto: "Three", parId: "3", audio: "three" },
-    { texto: "4", parId: "4", audio: "four" },    { texto: "Four", parId: "4", audio: "four" },
-    { texto: "5", parId: "5", audio: "five" },    { texto: "Five", parId: "5", audio: "five" },
-    { texto: "8", parId: "8", audio: "eight" },   { texto: "Eight", parId: "8", audio: "eight" }
-];
-
+var nivelMatchActual = "numeros";
 var primeraCarta = null;
 var segundaCarta = null;
 var bloqueado = false;
 
+function cambiarNivelMatch(nivel, boton) {
+    nivelMatchActual = nivel;
+    var botones = document.querySelectorAll('#vistaMatch .btn-categoria');
+    botones.forEach(btn => btn.classList.remove('activa'));
+    if (boton) boton.classList.add('activa');
+    iniciarJuegoMatch();
+}
+
 function iniciarJuegoMatch() {
     var tablero = document.getElementById("tableroCartas");
+    if (!tablero) return;
+
     tablero.innerHTML = "";
     primeraCarta = null;
     segundaCarta = null;
     bloqueado = false;
 
-    // Mezclar aleatoriamente las cartas
+    var datosCartas = nivelesMatch[nivelMatchActual] || nivelesMatch.numeros;
     var cartasMezcladas = [...datosCartas].sort(() => Math.random() - 0.5);
 
     cartasMezcladas.forEach(item => {
@@ -469,7 +391,6 @@ function iniciarJuegoMatch() {
 function seleccionarCarta(carta) {
     if (bloqueado || carta === primeraCarta || carta.classList.contains("revelada") || carta.classList.contains("emparejada")) return;
 
-    // Activar sintetizador en el primer clic si estamos en móvil
     activarAudioCelular();
 
     carta.classList.add("revelada");
@@ -485,13 +406,9 @@ function seleccionarCarta(carta) {
 
 function comprobarPareja() {
     if (primeraCarta.dataset.parId === segundaCarta.dataset.parId) {
-        // Marcamos como acierto
         primeraCarta.classList.add("emparejada");
         segundaCarta.classList.add("emparejada");
 
-        // Reproducir sonido de éxito y pronunciar el número en inglés
-        punto.currentTime = 0;
-        punto.play().catch(function(e){});
         hablar(primeraCarta.dataset.audio);
 
         primeraCarta = null;
@@ -499,13 +416,76 @@ function comprobarPareja() {
     } else {
         bloqueado = true;
         setTimeout(() => {
-            primeraCarta.classList.remove("revelada");
-            segundaCarta.classList.remove("revelada");
-            primeraCarta.innerHTML = "?";
-            segundaCarta.innerHTML = "?";
+            if (primeraCarta) {
+                primeraCarta.classList.remove("revelada");
+                primeraCarta.innerHTML = "?";
+            }
+            if (segundaCarta) {
+                segundaCarta.classList.remove("revelada");
+                segundaCarta.innerHTML = "?";
+            }
             primeraCarta = null;
             segundaCarta = null;
             bloqueado = false;
         }, 1000);
     }
+}
+
+// =====================================================================
+// 3. NAVEGACIÓN GLOBAL Y CARGA INICIAL
+// =====================================================================
+window.addEventListener('DOMContentLoaded', function() {
+    try {
+        generarBotonesCategorias();
+        prepararEstadoInicialBird();
+    } catch(e) {}
+    
+    setInterval(loop, 1000 / FPS);
+});
+
+function iniciarJuego(tipo) {
+    var menu = document.getElementById("menuPrincipal");
+    if (menu) menu.classList.add("oculto");
+
+    var vistas = document.querySelectorAll(".vista-juego");
+    vistas.forEach(function(vista) {
+        vista.classList.add("oculto");
+    });
+
+    juegoIniciado = false;
+
+    if (tipo === 'bird') {
+        var vistaBird = document.getElementById("vistaBird");
+        if (vistaBird) vistaBird.classList.remove("oculto");
+        generarBotonesCategorias();
+        prepararEstadoInicialBird();
+    } 
+    else if (tipo === 'match') {
+        var vistaMatch = document.getElementById("vistaMatch");
+        if (vistaMatch) vistaMatch.classList.remove("oculto");
+        var btnInicial = vistaMatch ? vistaMatch.querySelector('.btn-categoria') : null;
+        cambiarNivelMatch('numeros', btnInicial);
+    } 
+    else if (tipo === 'hangman') {
+        var vistaHangman = document.getElementById("vistaHangman");
+        if (vistaHangman) vistaHangman.classList.remove("oculto");
+        if (typeof inicioHangman === "function") inicioHangman();
+    } 
+    else if (tipo === 'space') {
+        var vistaSpace = document.getElementById("vistaSpace");
+        if (vistaSpace) vistaSpace.classList.remove("oculto");
+        if (typeof comenzarPartidaSpace === "function") comenzarPartidaSpace();
+    }
+}
+
+function volverAlMenu() {
+    var vistas = document.querySelectorAll(".vista-juego");
+    vistas.forEach(function(vista) {
+        vista.classList.add("oculto");
+    });
+
+    juegoIniciado = false;
+
+    var menu = document.getElementById("menuPrincipal");
+    if (menu) menu.classList.remove("oculto");
 }
