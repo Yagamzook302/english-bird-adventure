@@ -381,10 +381,9 @@ var nivelesMatch = {
         { texto: "4", parId: "4", audio: "four" },    { texto: "Four(4)", parId: "4", audio: "four" },
         { texto: "5", parId: "5", audio: "five" },    { texto: "Five(5)", parId: "5", audio: "five" },
         { texto: "8", parId: "8", audio: "eight" },   { texto: "Eight(8)", parId: "8", audio: "eight" },
-        { texto: "9", parId: "9", audio: "nine" },    { texto: "Nine(9)", parId: "9", audio: "nine" },
+        { texto: "9", parId: "9", audio: "nine" },    { texto: "Nine(9)", parId: "nine" },
         { texto: "10", parId: "10", audio: "ten" },   { texto: "Ten(10)", parId: "10", audio: "ten" }
-    ]
-};
+    ],
     multiplicaciones: [
         { texto: "2 × 2", parId: "m1", audio: "four" },      { texto: "Four(4)", parId: "m1", audio: "four" },
         { texto: "3 × 2", parId: "m2", audio: "six" },       { texto: "Six(6)", parId: "m2", audio: "six" },
