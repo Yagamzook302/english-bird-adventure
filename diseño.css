@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+/* =========================================================
+   ESTILOS GENERALES Y CONFIGURACIÓN BASE
+   ========================================================= */
 body {
     margin: 0;
     display: flex;
@@ -7,13 +12,13 @@ body {
     min-height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
-
-    /* FONDO INFANTIL VECTORIAL */
-    background-image: url('imagenes/fondo.svg');
+    background-image: url('imagenes/fondoPrincipal.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 #logo {
@@ -29,81 +34,11 @@ body {
     box-shadow: 0 0 10px #00d9ff;
 }
 
-/* CLASE PARA OCULTAR VISTAS */
+/* CLASE GLOBAL PARA OCULTAR VISTAS */
 .oculto {
     display: none !important;
 }
 
-/* ---------------------------------------------------------------------
-   MENÚ PRINCIPAL Y BOTONES GRANDES (BIRD Y MATCH)
---------------------------------------------------------------------- */
-.pantalla-menu {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 80px;
-}
-
-.titulo-principal {
-    color: white;
-    font-size: 38px;
-    margin-bottom: 40px;
-    text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000;
-}
-
-.contenedor-botones-menu {
-    display: flex;
-    gap: 30px;
-    align-items: center;
-    justify-content: center;
-}
-
-/* ESTILO BASE DE LOS BOTONES GRANDES */
-.btn-menu {
-    font-size: 42px;
-    font-weight: 900;
-    color: #ffffff;
-    padding: 25px 50px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    
-    /* CONTORNO NEGRO GRUESO EN EL TEXTO */
-    text-shadow: 
-        -3px -3px 0 #000, 
-         3px -3px 0 #000, 
-        -3px  3px 0 #000, 
-         3px  3px 0 #000,
-        -4px  0px 0 #000,
-         4px  0px 0 #000,
-         0px -4px 0 #000,
-         0px  4px 0 #000;
-
-    border: 4px solid #ffffff;
-}
-
-/* BOTÓN BIRD: Verde neón suave */
-.btn-bird {
-    background: #39ff14;
-    box-shadow: 0 0 15px rgba(57, 255, 20, 0.6), inset 0 -5px 0 rgba(0,0,0,0.2);
-}
-
-/* BOTÓN MATCH: Rojo oscuro */
-.btn-match {
-    background: #8b0000;
-    box-shadow: 0 0 15px rgba(139, 0, 0, 0.6), inset 0 -5px 0 rgba(0,0,0,0.3);
-}
-
-.btn-menu:hover {
-    transform: scale(1.08);
-}
-
-.btn-menu:active {
-    transform: scale(0.95);
-}
-
-/* BOTÓN VOLVER AL MENÚ */
 .btn-volver {
     position: absolute;
     top: 15px;
@@ -118,57 +53,98 @@ body {
     z-index: 100;
 }
 
-/* ---------------------------------------------------------------------
-   ESTILOS JUEGO BIRD
---------------------------------------------------------------------- */
-#vistaBird {
+/* =========================================================
+   MENÚ PRINCIPAL (TARJETAS / PANELES CON IMAGEN)
+   ========================================================= */
+.pantalla-menu {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    min-height: 100vh;
-    box-sizing: border-box;
-
-    /* APLICAR LA IMAGEN Y ESCALARLA AL TAMAÑO DEL DISPOSITIVO */
-    background-image: url('imagenes/fondobird.png');
-    background-size: cover;          /* Escala la imagen para cubrir toda la pantalla */
-    background-position: center;      /* Centra los personajes y letras */
-    background-repeat: no-repeat;    /* Evita que se repita */
-    background-attachment: fixed;    /* La mantiene fija al hacer scroll en móviles */
+    justify-content: center;
+    margin-top: 40px;
 }
 
-/* BARRA DE NIVELES CON SCROLL HORIZONTAL */
-.categorias-bar, .selector-categoria {
+.titulo-principal {
+    color: white;
+    font-size: 38px;
+    margin-bottom: 25px;
+    text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000;
+    text-align: center;
+}
+
+.contenedor-tarjetas-menu {
     display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-    z-index: 10;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
     max-width: 90vw;
-    overflow-x: auto;
-    padding: 10px 5px;
-    white-space: nowrap;
-    scrollbar-width: thin;
 }
 
-.categorias-bar::-webkit-scrollbar, .selector-categoria::-webkit-scrollbar {
-    height: 6px;
+.tarjeta-juego {
+    position: relative;
+    width: 160px;
+    height: 320px;
+    border-radius: 18px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 4px solid #ffffff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    background-color: #1a1a2e;
 }
 
-.categorias-bar::-webkit-scrollbar-thumb, .selector-categoria::-webkit-scrollbar-thumb {
-    background: #00d9ff;
-    border-radius: 10px;
+.tarjeta-juego:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 15px 30px rgba(0, 255, 234, 0.5);
+    border-color: #00ffea;
 }
 
+.img-tarjeta {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.tarjeta-juego:hover .img-tarjeta {
+    transform: scale(1.1);
+}
+
+.overlay-tarjeta {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 12px 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+    text-align: center;
+}
+
+.overlay-tarjeta span {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: #ffffff;
+    text-shadow: 0 0 8px #00ffea;
+    letter-spacing: 1px;
+}
+
+/* =========================================================
+   ESTILOS GENERALES DE BOTONES Y CATEGORÍAS
+   ========================================================= */
 .btn-categoria, .btn-cat {
     background: #003366;
     color: white;
     border: 2px solid #00d9ff;
-    padding: 8px 16px;
-    border-radius: 20px;
+    padding: 10px 16px;
+    border-radius: 15px;
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
-    flex-shrink: 0;
+    text-align: center;
+    box-sizing: border-box;
 }
 
 .btn-categoria.activa, .btn-cat.activo {
@@ -177,10 +153,61 @@ body {
     box-shadow: 0 0 12px #00d9ff;
 }
 
+/* =========================================================
+   JUEGO 1: BIRD (CON BARRAS DE CATEGORÍA A LA IZQUIERDA)
+   ========================================================= */
+#vistaBird {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    background-image: url('imagenes/fondobird.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 .contenedor {
     display: flex;
     gap: 20px;
     align-items: flex-start;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+/* Panel vertical de categorías a la izquierda */
+#vistaBird .categorias-bar, 
+#vistaBird .selector-categoria {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 140px;
+    min-height: 200px;
+    max-height: 530px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px 5px;
+    z-index: 10;
+}
+
+#vistaBird .btn-categoria, 
+#vistaBird .btn-cat {
+    width: 130px;
+}
+
+.categorias-bar::-webkit-scrollbar, 
+.selector-categoria::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.categorias-bar::-webkit-scrollbar-thumb, 
+.selector-categoria::-webkit-scrollbar-thumb {
+    background: #00d9ff;
+    border-radius: 10px;
 }
 
 .juego {
@@ -190,6 +217,28 @@ body {
     border-radius: 15px;
     overflow: hidden;
     line-height: 0;
+}
+
+.btn-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 12px 28px;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    background: #39ff14;
+    border: 3px solid #ffffff;
+    border-radius: 15px;
+    cursor: pointer;
+    z-index: 20;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+}
+
+.btn-overlay.restart {
+    background: #ff0055;
 }
 
 #lienzojuego {
@@ -224,30 +273,37 @@ body {
     color: #333;
 }
 
-/* ---------------------------------------------------------------------
-   ESTILOS JUEGO MATCH (CARTAS DE MATEMÁTICAS)
---------------------------------------------------------------------- */
+/* =========================================================
+   JUEGO 2: MATCH
+   ========================================================= */
 #vistaMatch {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    min-height: 100vh; /* Ocupa todo el alto de la pantalla */
+    min-height: 100vh;
     box-sizing: border-box;
-    padding-top: 80px; /* Espacio para que el botón Menu no tape el título */
-
-    /* APLICAR LA IMAGEN Y ESCALARLA AL TAMAÑO DEL DISPOSITIVO */
+    padding-top: 80px;
     background-image: url('imagenes/fondomatch.png');
-    background-size: cover;          /* Escala la imagen para cubrir toda la pantalla sin deformarse */
-    background-position: center;      /* Centra la imagen */
-    background-repeat: no-repeat;    /* Evita que se repita */
-    background-attachment: fixed;    /* La mantiene fija al hacer scroll (importante en móviles) */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
+
+#vistaMatch .categorias-bar {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
 .titulo-math {
     color: white;
     font-size: 28px;
     text-shadow: 2px 2px 4px #000;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .tablero-cartas {
@@ -269,12 +325,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     color: white;
     cursor: pointer;
-    user-select: none;
     transition: background 0.3s ease, transform 0.2s ease;
+    text-align: center;
+    padding: 4px;
+    box-sizing: border-box;
 }
 
 .carta.revelada {
@@ -290,25 +348,183 @@ body {
     transform: scale(1);
 }
 
-/* RESPONSIVE PARA CELULARES */
+/* =========================================================
+   JUEGO 3: HANGMAN
+   ========================================================= */
+.main-container-hangman {
+    max-width: 600px;
+    margin: 20px auto;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+}
+
+h2.palabra {
+    font-size: 32px;
+    letter-spacing: 8px;
+    color: #00d9ff;
+    margin: 20px 0;
+}
+
+.pista-container {
+    margin: 10px 0;
+    font-style: italic;
+    color: #ffea00;
+    min-height: 24px;
+}
+
+#abcdario {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 15px;
+}
+
+.letra-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: 2px solid #00d9ff;
+    background: #352b2a;
+    color: white;
+    cursor: pointer;
+}
+
+.letra-btn:disabled {
+    background: #222;
+    border-color: #555;
+    color: #777;
+    cursor: not-allowed;
+}
+
+.col-100 { width: 100%; }
+.rojo { color: #ff4d4d; }
+.verde { color: #39ff14; }
+
+.contenedor-ahorcado-img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.img-ahorcado {
+    max-height: 180px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+/* =========================================================
+   JUEGO 4: SPACE VOCABULARY Y CONTROLES TÁCTILES
+   ========================================================= */
+#vistaSpace {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 50;
+    overflow-y: auto;
+    background: url("imagenes/spacep.png") no-repeat center center / cover !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding-top: 20px;
+}
+
+.main-container-space {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+    padding: 10px;
+}
+
+#canvasSpace {
+    border: 3px solid #00ffea;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(0, 255, 234, 0.5);
+    background-color: rgba(5, 5, 13, 0.45); /* Transparencia para ver el fondo */
+    max-width: 100%;
+    height: auto;
+}
+
+/* Controles de pantalla táctil */
+.controles-tactiles-space {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 15px;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.grupo-direccion {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-touch {
+    background: rgba(0, 255, 234, 0.2);
+    border: 2px solid #00ffea;
+    color: #00ffea;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    touch-action: manipulation;
+    box-shadow: 0 0 10px rgba(0, 255, 234, 0.4);
+}
+
+.btn-touch:active {
+    background: #00ffea;
+    color: #000;
+    transform: scale(0.92);
+}
+
+.btn-disparo-touch {
+    width: 70px;
+    height: 70px;
+    background: rgba(255, 0, 85, 0.3);
+    border-color: #ff0055;
+    color: #ff0055;
+    box-shadow: 0 0 10px rgba(255, 0, 85, 0.4);
+}
+
+.btn-disparo-touch:active {
+    background: #ff0055;
+    color: #fff;
+}
+
+/* =========================================================
+   ADAPTACIÓN RESPONSIVA (MÓVILES Y TABLETS)
+   ========================================================= */
 @media (max-width: 768px) {
     .pantalla-menu {
-        margin-top: 40px;
+        margin-top: 20px;
     }
 
     .titulo-principal {
         font-size: 26px;
     }
 
-    .contenedor-botones-menu {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .btn-menu {
-        font-size: 32px;
-        padding: 18px 40px;
-        width: 200px;
+    .tarjeta-juego {
+        width: 130px;
+        height: 240px;
     }
 
     .contenedor {
@@ -317,14 +533,29 @@ body {
         gap: 10px;
     }
 
+    #vistaBird .categorias-bar, 
+    #vistaBird .selector-categoria {
+        flex-direction: row;
+        min-width: unset;
+        min-height: unset;
+        max-width: 90vw;
+        max-height: none;
+        overflow-x: auto;
+    }
+
+    #vistaBird .btn-categoria, 
+    #vistaBird .btn-cat {
+        width: auto;
+    }
+
     #lienzojuego {
-        width: 240px !important;
-        height: 424px !important;
+        width: 280px !important;
+        height: 420px !important;
     }
 
     .panel {
-        width: 240px;
-        height: 180px;
+        width: 280px;
+        height: 160px;
         padding: 10px;
     }
 
@@ -337,6 +568,10 @@ body {
     .carta {
         width: 75px;
         height: 90px;
-        font-size: 16px;
+        font-size: 15px;
+    }
+
+    .controles-tactiles-space {
+        display: flex;
     }
 }
