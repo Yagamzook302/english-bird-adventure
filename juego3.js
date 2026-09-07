@@ -459,3 +459,33 @@ document.addEventListener("keydown", function (e) {
 document.addEventListener("keyup", function (e) {
     game3.tecla[e.keyCode] = false;
 });
+
+// =========================================================
+// CONTROLES TÁCTILES PARA CELULAR (SPACE)
+// =========================================================
+window.addEventListener("DOMContentLoaded", function() {
+    var btnIzq = document.getElementById("btnIzquierda");
+    var btnDer = document.getElementById("btnDerecha");
+    var btnDisp = document.getElementById("btnDisparo");
+
+    if (btnIzq) {
+        btnIzq.addEventListener("touchstart", function(e) { e.preventDefault(); game3.tecla[KEY_LEFT_3] = true; });
+        btnIzq.addEventListener("touchend", function(e) { e.preventDefault(); game3.tecla[KEY_LEFT_3] = false; });
+    }
+
+    if (btnDer) {
+        btnDer.addEventListener("touchstart", function(e) { e.preventDefault(); game3.tecla[KEY_RIGHT_3] = true; });
+        btnDer.addEventListener("touchend", function(e) { e.preventDefault(); game3.tecla[KEY_RIGHT_3] = false; });
+    }
+
+    if (btnDisp) {
+        btnDisp.addEventListener("touchstart", function(e) {
+            e.preventDefault();
+            if (!game3.disparo && game3.juegoIniciado) {
+                game3.disparo = true;
+                game3.balas.push(new BalaSpace(game3.xJugador + 15, 440));
+                setTimeout(function() { game3.disparo = false; }, 220);
+            }
+        });
+    }
+});
