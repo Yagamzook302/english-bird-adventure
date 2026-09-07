@@ -1,3 +1,49 @@
+// =========================================================
+// CONTROL DEL MENÚ PRINCIPAL
+// =========================================================
+function iniciarJuego(tipo) {
+    // 1. Ocultar el menú
+    var menu = document.getElementById("menuPrincipal");
+    if (menu) {
+        menu.classList.add("oculto");
+    }
+
+    // 2. Ocultar todas las vistas de los juegos
+    var vistas = document.querySelectorAll(".vista-juego");
+    vistas.forEach(function(v) {
+        v.classList.add("oculto");
+    });
+
+    // 3. Mostrar la vista seleccionada de forma segura
+    if (tipo === 'bird') {
+        var vBird = document.getElementById("vistaBird");
+        if (vBird) vBird.classList.remove("oculto");
+        if (typeof iniciarOReiniciarBird === "function") iniciarOReiniciarBird();
+    } else if (tipo === 'match') {
+        var vMatch = document.getElementById("vistaMatch");
+        if (vMatch) vMatch.classList.remove("oculto");
+    } else if (tipo === 'hangman') {
+        var vHangman = document.getElementById("vistaHangman");
+        if (vHangman) vHangman.classList.remove("oculto");
+        if (typeof inicioHangman === "function") inicioHangman();
+    } else if (tipo === 'space') {
+        var vSpace = document.getElementById("vistaSpace");
+        if (vSpace) vSpace.classList.remove("oculto");
+        if (typeof comenzarPartidaSpace === "function") comenzarPartidaSpace();
+    }
+}
+
+function volverAlMenu() {
+    var vistas = document.querySelectorAll(".vista-juego");
+    vistas.forEach(function(v) {
+        v.classList.add("oculto");
+    });
+
+    var menu = document.getElementById("menuPrincipal");
+    if (menu) {
+        menu.classList.remove("oculto");
+    }
+}
 // =====================================================================
 // 1. CONFIGURACIÓN Y VARIABLES DEL JUEGO BIRD
 // =====================================================================
