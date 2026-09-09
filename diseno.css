@@ -577,6 +577,46 @@ h2.palabra {
    ADAPTACIÓN RESPONSIVA (MÓVILES Y TABLETS)
    ========================================================= */
 @media (max-width: 768px) {
+    /* --- Ajustes de Marcas de Agua y Cabecera --- */
+    .marca-agua-colegio {
+        bottom: 10px;
+        left: 10px;
+    }
+
+    .marca-agua-colegio img {
+        width: 45px;
+        opacity: 0.4;
+    }
+
+    .marca-agua-creditos {
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .marca-agua-creditos p:first-child {
+        font-size: 0.70rem;
+        opacity: 0.7;
+    }
+
+    .marca-agua-creditos p:last-child {
+        font-size: 0.60rem;
+        color: #0f2b48;
+        opacity: 0.6;
+    }
+
+    #logo {
+        width: 55px;
+        height: 55px;
+        top: 10px;
+        right: 10px;
+    }
+
+    .banner-titulo {
+        font-size: 1.6rem;
+        margin-top: 5px;
+    }
+
+    /* --- Ajustes del Menú y Estructura Existente --- */
     .pantalla-menu {
         margin-top: 20px;
     }
