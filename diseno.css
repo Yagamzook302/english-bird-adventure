@@ -558,7 +558,7 @@ h2.palabra {
 .marca-agua-creditos p:first-child {
     font-size: 1.15rem; /* Nombre más grande */
     font-weight: 800;
-    color: #2c2c2c;
+    color: #333333;
     opacity: 0.85;
     margin-bottom: 3px;
    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.6);
@@ -567,7 +567,7 @@ h2.palabra {
 .marca-agua-creditos p:last-child {
     font-size: 0.85rem;
     font-weight: 600;
-    color: #0f2b48; /* Azul oscuro profundo */
+    color: #2A2A2A; /* Azul oscuro profundo */
     opacity: 0.85;
     margin: 0;
 }
