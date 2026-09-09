@@ -527,6 +527,44 @@ h2.palabra {
     color: #fff;
 }
 
+
+/* Escudo del colegio (Zona inferior izquierda) */
+.marca-agua-colegio {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 10;
+    pointer-events: none; /* Permite hacer clic a través de la marca */
+}
+
+.marca-agua-colegio img {
+    width: 90px; /* Tamaño adecuado para la esquina */
+    height: auto;
+    opacity: 0.35; /* Opacidad sutil pero visible */
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* Créditos del autor (Zona inferior derecha) */
+.marca-agua-creditos {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+    text-align: right;
+    pointer-events: none;
+}
+
+.marca-agua-creditos p {
+    margin: 0;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #e0e0e0; /* Color gris claro */
+    opacity: 0.45;  /* Opacidad para efecto marca de agua */
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+}
+
 /* =========================================================
    ADAPTACIÓN RESPONSIVA (MÓVILES Y TABLETS)
    ========================================================= */
