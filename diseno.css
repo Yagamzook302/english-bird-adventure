@@ -558,17 +558,17 @@ h2.palabra {
 .marca-agua-creditos p:first-child {
     font-size: 1.15rem; /* Nombre más grande */
     font-weight: 800;
-    color: #ffffff;
-    opacity: 0.60;
+    color: #2c2c2c;
+    opacity: 0.85;
     margin-bottom: 3px;
+   text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.6);
 }
 
-/* La especialidad se mantiene en un tamaño secundario */
 .marca-agua-creditos p:last-child {
     font-size: 0.85rem;
     font-weight: 600;
-    color: #d0d0d0;
-    opacity: 0.50;
+    color: #0f2b48; /* Azul oscuro profundo */
+    opacity: 0.85;
     margin: 0;
 }
 
