@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
-
 /* =========================================================
    ESTILOS GENERALES Y CONFIGURACIÓN BASE
    ========================================================= */
@@ -20,6 +19,7 @@ body {
     user-select: none;
     -webkit-user-select: none;
 }
+
 .banner-titulo {
     font-family: 'Fredoka', 'Impact', sans-serif;
     font-size: 2.8rem; /* Sensiblemente más grande que CHOOSE YOUR GAME */
@@ -27,7 +27,7 @@ body {
     color: #FFD700; /* Amarillo dorado vibrante */
     text-transform: uppercase;
     text-align: center;
-    margin-bottom: 8px;
+    margin-bottom: 5px; /* Reducimos el margen inferior del título */
     letter-spacing: 2px;
     
     /* Borde negro alrededor de las letras y sombra de relieve */
@@ -79,14 +79,15 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 40px;
+    margin-top: 25px; /* Aumentado para empujar todo el menú hacia abajo */
 }
 
 .titulo-principal {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     color: #FFFFFF;
     text-shadow: 2px 2px 0px #000;
-    margin-top: 0;
+    margin-top: 10px;    /* Separa "CHOOSE YOUR GAME" del título dorado */
+    margin-bottom: 25px; /* Separa "CHOOSE YOUR GAME" de las tarjetas */
 }
 
 .contenedor-tarjetas-menu {
