@@ -41,15 +41,15 @@ body {
 
 #logo {
     position: absolute; 
-    top: 15px;
-    right: 15px;
-    width: 54px;   /* Aumentado 20% (de 45px a 54px) */
-    height: 54px;  /* Aumentado 20% (de 45px a 54px) */
+    top: 20px;
+    right: 20px;
+    width: 90px;   /* Tamaño aumentado para que destaque */
+    height: 90px;  /* Mantener proporción cuadrada */
     object-fit: cover;
     border-radius: 50%;
-    border: 3px solid white;
+    border: 4px solid white; /* Borde un poco más grueso para que resalte */
     z-index: 999;
-    box-shadow: 0 0 10px #00d9ff;
+    box-shadow: 0 0 15px #00d9ff;
 }
 
 /* CLASE GLOBAL PARA OCULTAR VISTAS */
