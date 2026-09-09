@@ -20,6 +20,24 @@ body {
     user-select: none;
     -webkit-user-select: none;
 }
+.banner-titulo {
+    font-family: 'Fredoka', 'Impact', sans-serif;
+    font-size: 2.8rem; /* Sensiblemente más grande que CHOOSE YOUR GAME */
+    font-weight: 900;
+    color: #FFD700; /* Amarillo dorado vibrante */
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+    
+    /* Borde negro alrededor de las letras y sombra de relieve */
+    text-shadow: 
+        3px 3px 0px #000,
+       -2px -2px 0px #000,
+        2px -2px 0px #000,
+       -2px  2px 0px #000,
+        0px  4px 10px rgba(0, 0, 0, 0.5);
+}
 
 #logo {
     position: absolute; 
@@ -65,11 +83,10 @@ body {
 }
 
 .titulo-principal {
-    color: white;
-    font-size: 38px;
-    margin-bottom: 25px;
-    text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000;
-    text-align: center;
+    font-size: 1.5rem;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 0px #000;
+    margin-top: 0;
 }
 
 .contenedor-tarjetas-menu {
